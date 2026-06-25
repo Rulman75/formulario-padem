@@ -15,7 +15,7 @@
             <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
             <img src="Logo_CMDS.png" alt="CMDS Antofagasta" class="main-logo">
             <header style="margin-bottom: 0;">
-                <h1 style="color: #085F96;">FICHA PADEM 2027</h1>
+                <h1 style="color: #3DB9BC;">FICHA PADEM 2027</h1>
                 <p>Ingrese la información requerida del establecimiento para el periodo correspondiente.</p>
             </header>
         </div>
@@ -416,6 +416,18 @@
                             <tr><td>N° de casos graves. Aplicación Aula Segura</td><td><input type="number" name="s9_aula_2023"></td><td><input type="number" name="s9_aula_2024"></td><td><input type="number" name="s9_aula_2025"></td></tr>
                         </tbody>
                     </table>
+                </div>
+            </section>
+
+            <!-- 10. Preguntas de Analisis -->
+            <section class="form-card">
+                <h2>10. Preguntas de Análisis</h2>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="s10_analisis_1">Análisis General del Establecimiento</label>
+                    <textarea id="s10_analisis_1" name="s10_analisis_1" rows="6" maxlength="5000" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-family: inherit; resize: vertical;" oninput="document.getElementById('char-count-1').textContent = this.value.length"></textarea>
+                    <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">
+                        <span id="char-count-1">0</span> / 5000 caracteres
+                    </div>
                 </div>
             </section>
 

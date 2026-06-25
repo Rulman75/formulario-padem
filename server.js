@@ -309,6 +309,7 @@ app.get('/api/admin/users', requireAdmin, async (req, res) => {
             CASE WHEN f.user_id IS NOT NULL THEN 1 ELSE 0 END as has_data,
             f.updated_at
             FROM users u 
+            LEFT JOIN form_data f ON u.id = f.user_id 
             WHERE u.role != 'admin'
             ORDER BY u.school_name ASC
         `);
