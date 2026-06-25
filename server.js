@@ -2,6 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 const ExcelJS = require('exceljs');
 require('dotenv').config();
@@ -16,18 +17,24 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // Serve static files from 'public'
 app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'cmds_secret_key_2026',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 1 day
-}));
+app.set('trust proxy', 1);
 
 // DB Initialization
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
+
+app.use(session({
+    store: new pgSession({
+        pool: pool,
+        tableName: 'session'
+    }),
+    secret: process.env.SESSION_SECRET || 'cmds_secret_key_2026',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 1 day
+}));
 
 pool.on('connect', () => {
   console.log('Connected to the Neon PostgreSQL database.');
@@ -36,6 +43,17 @@ pool.on('connect', () => {
 // Initialize DB schema
 async function initDB() {
     try {
+        // Create session table
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS "session" (
+                "sid" varchar NOT NULL COLLATE "default",
+                "sess" json NOT NULL,
+                "expire" timestamp(6) NOT NULL,
+                PRIMARY KEY ("sid")
+            )
+        `);
+        await pool.query(`CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire")`);
+
         // Create users table
         await pool.query(`
             CREATE TABLE IF NOT EXISTS users (
