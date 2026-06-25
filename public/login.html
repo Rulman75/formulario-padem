@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CMDS Antofagasta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .login-logo {
+            max-width: 180px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        .error-message {
+            color: var(--accent-pink);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="Logo_CMDS.png" alt="CMDS Antofagasta" class="login-logo">
+        <h2 style="margin-bottom: 20px; font-family: var(--font-display); color: #085F96;">FICHA PADEM 2027</h2>
+        <form id="login-form">
+            <div class="error-message" id="error-msg">Credenciales incorrectas.</div>
+            <div class="form-group" style="margin-bottom: 20px; text-align: left;">
+                <label>Usuario</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 30px; text-align: left;">
+                <label>Contraseña</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Ingresar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const btn = document.querySelector('button');
+            const errorMsg = document.getElementById('error-msg');
+            
+            btn.disabled = true;
+            btn.textContent = 'Iniciando...';
+            errorMsg.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                
+                if (res.ok && data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorMsg.textContent = data.error || 'Error al iniciar sesión';
+                    errorMsg.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Ingresar';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Error de conexión';
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Ingresar';
+            }
+        });
+    </script>
+</body>
+</html>

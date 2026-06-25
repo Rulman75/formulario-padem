@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Establecimiento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="header-container">
+            <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
+            <img src="Logo_CMDS.png" alt="CMDS Antofagasta" class="main-logo">
+            <header style="margin-bottom: 0;">
+                <h1 style="color: #085F96;">FICHA PADEM 2027</h1>
+                <p>Ingrese la información requerida del establecimiento para el periodo correspondiente.</p>
+            </header>
+        </div>
+
+        <form id="school-form">
+            <!-- 1. Identificación del Establecimiento -->
+            <section class="form-card">
+                <h2>1. Identificación del Establecimiento</h2>
+                <div class="grid-2">
+                    <div class="form-group span-2">
+                        <label for="nombre_establecimiento">Nombre del Establecimiento</label>
+                        <input type="text" id="nombre_establecimiento" name="nombre_establecimiento" class="readonly-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre del Director(a)</label>
+                        <input type="text" id="nombre_director" name="nombre_director" class="readonly-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>RBD</label>
+                        <input type="text" id="rbd" name="rbd" class="readonly-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label>e-mail</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="form-group span-2">
+                        <label>Dirección</label>
+                        <input type="text" name="direccion">
+                    </div>
+                    <div class="form-group">
+                        <label>Nº de Resolución de Reconocimiento Oficial</label>
+                        <input type="text" name="res_reconocimiento">
+                    </div>
+                    <div class="form-group">
+                        <label>Nº de Resolución JECD</label>
+                        <input type="text" name="res_jecd">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Cantidad de cursos que atiende -->
+            <section class="form-card">
+                <h2>2. Cantidad de cursos que atiende</h2>
+                <div class="grid-auto">
+                    <div class="form-group">
+                        <label>Educación Parvularia</label>
+                        <input type="number" name="cur_parvularia" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Educación Básica</label>
+                        <input type="number" name="cur_basica" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Educación Media HC</label>
+                        <input type="number" name="cur_media_hc" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Educación Media TP</label>
+                        <input type="number" name="cur_media_tp" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Educación Especial</label>
+                        <input type="number" name="cur_especial" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Opción 4</label>
+                        <input type="number" name="cur_opcion4" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Educación Adultos</label>
+                        <input type="number" name="cur_adultos" min="0">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Diagnóstico del Establecimiento -->
+            <section class="form-card">
+                <h2>3. Diagnóstico del Establecimiento</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Instrumento / Documento</th>
+                                <th class="center">Actualizado</th>
+                                <th class="center">En Proceso</th>
+                                <th>Especificaciones / Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>P.E.I.</td>
+                                <td class="center">
+                                    <label class="radio-label"><input type="radio" name="diag_pei" value="actualizado"></label>
+                                </td>
+                                <td class="center">
+                                    <label class="radio-label"><input type="radio" name="diag_pei" value="en_proceso"></label>
+                                </td>
+                                <td><input type="date" name="fecha_pei" title="Día, mes, año"></td>
+                            </tr>
+                            <tr>
+                                <td>REGLAMENTO INTERNO</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_int" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_int" value="en_proceso"></label></td>
+                                <td><input type="text" name="espec_reg_int"></td>
+                            </tr>
+                            <tr>
+                                <td>MANUAL DE CONVIVENCIA</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_man_conv" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_man_conv" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PROTOCOLOS (9)</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_prot" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_prot" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN DE TRAYECTORIA EDUCATIVA EPA-1 <span style="font-size: 0.8rem; color: var(--text-muted);">(ETE/ decreto 373)</span></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_epa1" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_epa1" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>REGLAMENTO DE EVALUACIÓN Y PROMOCIÓN</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_eval" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_eval" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>REGLAMENTO DE PRÁCTICA TP</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_prac" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_reg_prac" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PISE</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_pise" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_pise" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PME</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_pme" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_pme" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN GESTIÓN DE CONVIVENCIA ESCOLAR</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_conv" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_conv" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN DE FORMACIÓN CIUDADANA</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_ciu" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_ciu" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN SEXUALIDAD, AFECTIVIDAD Y GÉNERO</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_sex" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_sex" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN LOCAL DE FORMACIÓN PARA EL DESARROLLO PROF. DOCENTE</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_doc" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_doc" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN APOYO A LA INCLUSIÓN</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_inc" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_inc" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>PLAN INTEGRAL DE SEGURIDAD ESCOLAR</td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_seg" value="actualizado"></label></td>
+                                <td class="center"><label class="radio-label"><input type="radio" name="diag_plan_seg" value="en_proceso"></label></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. Dotación por subvención regular -->
+            <section class="form-card">
+                <h2>4. Dotación por subvención regular cantidad actual y Proyección 2026</h2>
+                <p class="subtitle">La justificación se debe realizar sobre situaciones concretas que ameriten un aumento de dotación.</p>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cargo / Función</th>
+                                <th style="width: 100px;">2026</th>
+                                <th>Contrato (Estatuto Docente / C. del Trabajo)</th>
+                                <th>Observación / Justificación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Director</td><td><input type="number" name="s4_1_2026" value="1"></td><td><input type="text" name="s4_1_con" value="Estatuto Docente"></td><td><input type="text" name="s4_1_obs"></td></tr>
+                            <tr><td>Inspector General</td><td><input type="number" name="s4_2_2026"></td><td><input type="text" name="s4_2_con"></td><td><input type="text" name="s4_2_obs"></td></tr>
+                            <tr><td>Orientador</td><td><input type="number" name="s4_3_2026"></td><td><input type="text" name="s4_3_con"></td><td><input type="text" name="s4_3_obs"></td></tr>
+                            <tr><td>Jefe de UTP</td><td><input type="number" name="s4_4_2026"></td><td><input type="text" name="s4_4_con"></td><td><input type="text" name="s4_4_obs"></td></tr>
+                            <tr><td>Curriculista</td><td><input type="number" name="s4_5_2026"></td><td><input type="text" name="s4_5_con"></td><td><input type="text" name="s4_5_obs"></td></tr>
+                            <tr><td>Evaluador</td><td><input type="number" name="s4_6_2026"></td><td><input type="text" name="s4_6_con"></td><td><input type="text" name="s4_6_obs"></td></tr>
+                            <tr><td>Jefe de Producción (Liceos T.P)</td><td><input type="number" name="s4_7_2026"></td><td><input type="text" name="s4_7_con"></td><td><input type="text" name="s4_7_obs"></td></tr>
+                            <tr><td>Coordinador TP (Liceos T.P)</td><td><input type="number" name="s4_8_2026"></td><td><input type="text" name="s4_8_con"></td><td><input type="text" name="s4_8_obs"></td></tr>
+                            <tr><td>Coordinador de Convivencia Educativa</td><td><input type="number" name="s4_9_2026"></td><td><input type="text" name="s4_9_con"></td><td><input type="text" name="s4_9_obs"></td></tr>
+                            <tr><td>Docentes de aula</td><td><input type="number" name="s4_10_2026"></td><td><input type="text" name="s4_10_con"></td><td><input type="text" name="s4_10_obs"></td></tr>
+                            <tr><td>Docentes Educ. diferenciales (Estatuto Docente)</td><td><input type="number" name="s4_11_2026"></td><td><input type="text" name="s4_11_con"></td><td><input type="text" name="s4_11_obs"></td></tr>
+                            <tr><td>Educadoras de Párvulos</td><td><input type="number" name="s4_12_2026"></td><td><input type="text" name="s4_12_con"></td><td><input type="text" name="s4_12_obs"></td></tr>
+                            <tr><td>Encargado de Informática</td><td><input type="number" name="s4_13_2026"></td><td><input type="text" name="s4_13_con"></td><td><input type="text" name="s4_13_obs"></td></tr>
+                            <tr><td>Apoyo por subv. regular (señalar función)</td><td><input type="number" name="s4_14_2026"></td><td><input type="text" name="s4_14_con"></td><td><input type="text" name="s4_14_obs"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Dotaciones contratadas por SEP -->
+            <section class="form-card">
+                <h2>5. Dotaciones contratadas por SEP</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Función</th>
+                                <th style="width: 100px;">2025</th>
+                                <th style="width: 100px;">2026</th>
+                                <th>Código del trabajo</th>
+                                <th>Observación / Justificación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Reforzamiento Educativo</td>
+                                <td><input type="number" name="s5_1_2025"></td>
+                                <td><input type="number" name="s5_1_2026"></td>
+                                <td><input type="text" name="s5_1_con" value="Código del trabajo"></td>
+                                <td><input type="text" name="s5_1_obs" value="Contrato hasta nov"></td>
+                            </tr>
+                            <tr>
+                                <td>Asistente de aula</td>
+                                <td><input type="number" name="s5_2_2025"></td>
+                                <td><input type="number" name="s5_2_2026"></td>
+                                <td><input type="text" name="s5_2_con" value="Código del trabajo"></td>
+                                <td><input type="text" name="s5_2_obs"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. Asistentes y profesionales de la Educación -->
+            <section class="form-card">
+                <h2>6. Asistentes y profesionales de la Educación</h2>
+                <p class="subtitle">Informar contrato por estatuto docente o código del trabajo. La justificación se debe realizar sobre situaciones concretas que ameriten un aumento de dotación.</p>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Función</th>
+                                <th style="width: 100px;">2025</th>
+                                <th>Contrato</th>
+                                <th>Observación / Justificación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Psicólogo PIE</td><td><input type="number" name="s6_1_2025"></td><td><input type="text" name="s6_1_con" value="CT"></td><td><input type="text" name="s6_1_obs"></td></tr>
+                            <tr><td>Fonoaudiólogo PIE</td><td><input type="number" name="s6_2_2025"></td><td><input type="text" name="s6_2_con" value="CT"></td><td><input type="text" name="s6_2_obs"></td></tr>
+                            <tr><td>Kinesiólogo PIE</td><td><input type="number" name="s6_3_2025"></td><td><input type="text" name="s6_3_con" value="CT"></td><td><input type="text" name="s6_3_obs"></td></tr>
+                            <tr><td>Terapeuta Ocupacional PIE</td><td><input type="number" name="s6_4_2025"></td><td><input type="text" name="s6_4_con" value="CT"></td><td><input type="text" name="s6_4_obs"></td></tr>
+                            <tr><td>Psicopedagogo(a) PIE</td><td><input type="number" name="s6_5_2025"></td><td><input type="text" name="s6_5_con" value="CT"></td><td><input type="text" name="s6_5_obs"></td></tr>
+                            <tr><td>Monitora PIE</td><td><input type="number" name="s6_6_2025"></td><td><input type="text" name="s6_6_con" value="CT"></td><td><input type="text" name="s6_6_obs"></td></tr>
+                            <tr><td>Interprete PIE</td><td><input type="number" name="s6_7_2025"></td><td><input type="text" name="s6_7_con" value="CT"></td><td><input type="text" name="s6_7_obs"></td></tr>
+                            <tr><td>Co-educador Sordo</td><td><input type="number" name="s6_8_2025"></td><td><input type="text" name="s6_8_con" value="CT"></td><td><input type="text" name="s6_8_obs"></td></tr>
+                            <tr><td>Psicólogo Psicosocial</td><td><input type="number" name="s6_9_2025"></td><td><input type="text" name="s6_9_con" value="CT"></td><td><input type="text" name="s6_9_obs"></td></tr>
+                            <tr><td>Asistente Social Psicosocial</td><td><input type="number" name="s6_10_2025"></td><td><input type="text" name="s6_10_con" value="CT"></td><td><input type="text" name="s6_10_obs"></td></tr>
+                            <tr><td>Psicopedagogo Psicosocial</td><td><input type="number" name="s6_11_2025"></td><td><input type="text" name="s6_11_con" value="CT"></td><td><input type="text" name="s6_11_obs"></td></tr>
+                            <tr><td>Asistente de Aula (SEP)</td><td><input type="number" name="s6_12_2025"></td><td><input type="text" name="s6_12_con" value="CT"></td><td><input type="text" name="s6_12_obs"></td></tr>
+                            <tr><td>Educadoras Diferenciales</td><td><input type="number" name="s6_13_2025"></td><td><input type="text" name="s6_13_con"></td><td><input type="text" name="s6_13_obs"></td></tr>
+                            <tr><td>Asistente de Párvulos</td><td><input type="number" name="s6_14_2025"></td><td><input type="text" name="s6_14_con" value="CT"></td><td><input type="text" name="s6_14_obs"></td></tr>
+                            <tr><td>Asistente CRA</td><td><input type="number" name="s6_15_2025"></td><td><input type="text" name="s6_15_con"></td><td><input type="text" name="s6_15_obs"></td></tr>
+                            <tr><td>Jefe Administrativo</td><td><input type="number" name="s6_16_2025"></td><td><input type="text" name="s6_16_con"></td><td><input type="text" name="s6_16_obs"></td></tr>
+                            <tr><td>Secretaria</td><td><input type="number" name="s6_17_2025"></td><td><input type="text" name="s6_17_con"></td><td><input type="text" name="s6_17_obs"></td></tr>
+                            <tr><td>Inspector de Patio</td><td><input type="number" name="s6_18_2025"></td><td><input type="text" name="s6_18_con"></td><td><input type="text" name="s6_18_obs"></td></tr>
+                            <tr><td>Pañolero</td><td><input type="number" name="s6_19_2025"></td><td><input type="text" name="s6_19_con"></td><td><input type="text" name="s6_19_obs"></td></tr>
+                            <tr><td>Auxiliar de Servicio</td><td><input type="number" name="s6_20_2025"></td><td><input type="text" name="s6_20_con"></td><td><input type="text" name="s6_20_obs"></td></tr>
+                            <tr><td>Portero</td><td><input type="number" name="s6_21_2025"></td><td><input type="text" name="s6_21_con"></td><td><input type="text" name="s6_21_obs"></td></tr>
+                            <tr><td>Guardia</td><td><input type="number" name="s6_22_2025"></td><td><input type="text" name="s6_22_con"></td><td><input type="text" name="s6_22_obs"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 7. Matrícula, Asistencia Media Anual, Retiros -->
+            <section class="form-card">
+                <h2>7. Matrícula, Asistencia Media Anual, Retiros</h2>
+                <p class="subtitle">*Se debe considerar información al 30 de julio 2026.</p>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Años</th>
+                                <th>Matrícula</th>
+                                <th>Asistencia Media</th>
+                                <th>Alumnos Retirados</th>
+                                <th>% Retención</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2023</td>
+                                <td><input type="number" name="s7_mat_2023" class="s7_mat"></td>
+                                <td><input type="number" step="0.01" name="s7_asis_2023" class="s7_asis"></td>
+                                <td><input type="number" name="s7_ret_2023" class="s7_ret"></td>
+                                <td><input type="number" step="0.01" name="s7_reten_2023" class="s7_reten"></td>
+                            </tr>
+                            <tr>
+                                <td>2024</td>
+                                <td><input type="number" name="s7_mat_2024" class="s7_mat"></td>
+                                <td><input type="number" step="0.01" name="s7_asis_2024" class="s7_asis"></td>
+                                <td><input type="number" name="s7_ret_2024" class="s7_ret"></td>
+                                <td><input type="number" step="0.01" name="s7_reten_2024" class="s7_reten"></td>
+                            </tr>
+                            <tr>
+                                <td>2025 (*)</td>
+                                <td><input type="number" name="s7_mat_2025" class="s7_mat"></td>
+                                <td><input type="number" step="0.01" name="s7_asis_2025" class="s7_asis"></td>
+                                <td><input type="number" name="s7_ret_2025" class="s7_ret"></td>
+                                <td><input type="number" step="0.01" name="s7_reten_2025" class="s7_reten"></td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Promedio</strong></td>
+                                <td><input type="number" step="0.01" id="s7_mat_prom" readonly class="readonly-input"></td>
+                                <td><input type="number" step="0.01" id="s7_asis_prom" readonly class="readonly-input"></td>
+                                <td><input type="number" step="0.01" id="s7_ret_prom" readonly class="readonly-input"></td>
+                                <td><input type="number" step="0.01" id="s7_reten_prom" readonly class="readonly-input"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. Tasa de Eficiencia Interna -->
+            <section class="form-card">
+                <h2>8. Tasa de Eficiencia Interna</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>2023</th>
+                                <th>2024</th>
+                                <th>2025</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Matrícula (N°)</td><td><input type="number" name="s8_mat_2023"></td><td><input type="number" name="s8_mat_2024"></td><td><input type="number" name="s8_mat_2025"></td></tr>
+                            <tr><td>Tasa Aprobados (%)</td><td><input type="number" step="0.01" name="s8_apr_2023"></td><td><input type="number" step="0.01" name="s8_apr_2024"></td><td><input type="number" step="0.01" name="s8_apr_2025"></td></tr>
+                            <tr><td>Tasa Repetición de Experiencias (%)</td><td><input type="number" step="0.01" name="s8_rep_2023"></td><td><input type="number" step="0.01" name="s8_rep_2024"></td><td><input type="number" step="0.01" name="s8_rep_2025"></td></tr>
+                            <tr><td>Tasa Retiros (%)</td><td><input type="number" step="0.01" name="s8_ret_2023"></td><td><input type="number" step="0.01" name="s8_ret_2024"></td><td><input type="number" step="0.01" name="s8_ret_2025"></td></tr>
+                            <tr><td>Egresados TP</td><td><input type="number" name="s8_egr_2023"></td><td><input type="number" name="s8_egr_2024"></td><td><input type="number" name="s8_egr_2025"></td></tr>
+                            <tr><td>Titulados TP</td><td><input type="number" name="s8_tit_2023"></td><td><input type="number" name="s8_tit_2024"></td><td><input type="number" name="s8_tit_2025"></td></tr>
+                            <tr><td>% de Asistencia (julio 2025)</td><td><input type="number" step="0.01" name="s8_asis_2023"></td><td><input type="number" step="0.01" name="s8_asis_2024"></td><td><input type="number" step="0.01" name="s8_asis_2025"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 9. Indicadores Sociales -->
+            <section class="form-card">
+                <h2>9. Indicadores Sociales</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>2023</th>
+                                <th>2024</th>
+                                <th>2025</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Indice de Vulnerabilidad</td><td><input type="number" step="0.01" name="s9_vul_2023"></td><td><input type="number" step="0.01" name="s9_vul_2024"></td><td><input type="number" step="0.01" name="s9_vul_2025"></td></tr>
+                            <tr><td>N° Raciones JUNAEB</td><td><input type="number" name="s9_rac_2023"></td><td><input type="number" name="s9_rac_2024"></td><td><input type="number" name="s9_rac_2025"></td></tr>
+                            <tr><td>N° Becas JUNAEB (Útiles Escolares)</td><td><input type="number" name="s9_bec_2023"></td><td><input type="number" name="s9_bec_2024"></td><td><input type="number" name="s9_bec_2025"></td></tr>
+                            <tr><td>N° Becas PC Séptimos Básicos</td><td><input type="number" name="s9_pc_2023"></td><td><input type="number" name="s9_pc_2024"></td><td><input type="number" name="s9_pc_2025"></td></tr>
+                            <tr><td>Estudiantes DELTA</td><td><input type="number" name="s9_delta_2023"></td><td><input type="number" name="s9_delta_2024"></td><td><input type="number" name="s9_delta_2025"></td></tr>
+                            <tr><td>PACE</td><td><input type="number" name="s9_pace_2023"></td><td><input type="number" name="s9_pace_2024"></td><td><input type="number" name="s9_pace_2025"></td></tr>
+                            <tr><td>N° de casos graves. Aplicación Aula Segura</td><td><input type="number" name="s9_aula_2023"></td><td><input type="number" name="s9_aula_2024"></td><td><input type="number" name="s9_aula_2025"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <div class="auto-save-status saved" id="auto-save-status">
+                    <div class="dot"></div>
+                    <span id="auto-save-text">Datos al día</span>
+                </div>
+                <button type="submit" class="btn-primary" id="submit-btn">
+                    <span>Guardar Información</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="toast" id="toast">¡Información guardada exitosamente!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

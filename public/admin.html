@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - CMDS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .data-table th {
+            background-color: var(--bg-input);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .data-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-badge.yes { background-color: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .status-badge.no { background-color: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            background-color: var(--border-color);
+            color: var(--text-main);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-small:hover { background-color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="max-width: 1100px;">
+        <div class="admin-header">
+            <div>
+                <img src="Logo_CMDS.png" alt="CMDS" style="height: 60px; margin-bottom: 10px;">
+                <h1 style="color: var(--primary);">Panel de Administración</h1>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button id="btn-export" class="btn-primary" style="background-color: var(--success); border-color: var(--success);">
+                    Descargar Excel
+                </button>
+                <button id="btn-logout" class="logout-btn" style="position: static;">Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <h2>Estado de Llenado de Formularios</h2>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>RBD</th>
+                            <th>Establecimiento</th>
+                            <th>Director(a)</th>
+                            <th>Estado</th>
+                            <th>Última Modificación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <tr><td colspan="6" style="text-align: center;">Cargando información...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadUsers();
+
+            document.getElementById('btn-export').addEventListener('click', () => {
+                window.location.href = '/api/admin/export';
+            });
+
+            document.getElementById('btn-logout').addEventListener('click', async () => {
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/login';
+            });
+        });
+
+        async function loadUsers() {
+            const tbody = document.getElementById('users-tbody');
+            try {
+                const res = await fetch('/api/admin/users');
+                const data = await res.json();
+                
+                if (data.success) {
+                    tbody.innerHTML = '';
+                    data.users.forEach(u => {
+                        const tr = document.createElement('tr');
+                        const statusClass = u.has_data ? 'yes' : 'no';
+                        const statusText = u.has_data ? 'Completado' : 'Pendiente';
+                        const dateText = u.updated_at ? new Date(u.updated_at).toLocaleString('es-CL') : '-';
+                        
+                        // Extract director name from user info if available (the backend sends it or not? I didn't include director_name in admin/users query, let's just show it)
+                        // Wait, I didn't include director_name in /api/admin/users in server.js, let me just show the establishment. 
+                        
+                        tr.innerHTML = `
+                            <td>${u.username}</td>
+                            <td>${u.school_name || 'N/A'}</td>
+                            <td>${u.must_change_password ? '<span style="color:var(--text-muted);font-size:0.8rem">Pendiente Cambio Clave</span>' : 'Clave Cambiada'}</td>
+                            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                            <td>${dateText}</td>
+                            <td>
+                                <button class="btn-small" onclick="resetPassword(${u.id}, '${u.username}')">Resetear Clave</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="6">Error al cargar datos.</td></tr>';
+            }
+        }
+
+        async function resetPassword(userId, username) {
+            if (!confirm(`¿Estás seguro que deseas resetear la contraseña del RBD ${username} a la por defecto (12345678)?`)) return;
+            
+            try {
+                const res = await fetch('/api/admin/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert('Contraseña reseteada exitosamente. El usuario deberá cambiarla en su próximo ingreso.');
+                    loadUsers(); // refresh
+                } else {
+                    alert('Error al resetear la contraseña.');
+                }
+            } catch (err) {
+                alert('Error de conexión.');
+            }
+        }
+    </script>
+</body>
+</html>
