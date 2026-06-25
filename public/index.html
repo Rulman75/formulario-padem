@@ -422,11 +422,19 @@
             <!-- 10. Preguntas de Analisis -->
             <section class="form-card">
                 <h2>10. Preguntas de Análisis</h2>
-                <div class="form-group" style="margin-top: 15px;">
-                    <label for="s10_analisis_1">Análisis General del Establecimiento</label>
-                    <textarea id="s10_analisis_1" name="s10_analisis_1" rows="6" maxlength="5000" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-family: inherit; resize: vertical;" oninput="document.getElementById('char-count-1').textContent = this.value.length"></textarea>
+                <div class="form-group" style="margin-top: 15px; margin-bottom: 30px;">
+                    <label for="s10_q1" style="font-weight: 600; line-height: 1.5; display: block; margin-bottom: 10px;">Pregunta 1<br><span style="font-weight: 400; color: var(--text-muted);">¿Cuáles son las tres principales dificultades o factores que actualmente limitan el logro de mejores aprendizajes de los estudiantes en su establecimiento? Describa brevemente cada una, indicando sus principales causas.</span></label>
+                    <textarea id="s10_q1" name="s10_q1" rows="6" maxlength="5000" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-family: inherit; resize: vertical;" oninput="document.getElementById('char-count-q1').textContent = this.value.length"></textarea>
                     <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">
-                        <span id="char-count-1">0</span> / 5000 caracteres
+                        <span id="char-count-q1">0</span> / 5000 caracteres
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="s10_q2" style="font-weight: 600; line-height: 1.5; display: block; margin-bottom: 10px;">Pregunta 2<br><span style="font-weight: 400; color: var(--text-muted);">Considerando las dificultades identificadas en la pregunta anterior, ¿qué tres acciones estratégicas concretas propone el establecimiento para abordarlas durante el año 2027? Señale los recursos, apoyos o gestiones necesarios para llevarlas a cabo con éxito, e indique cómo medirían el avance de cada acción.</span></label>
+                    <textarea id="s10_q2" name="s10_q2" rows="6" maxlength="5000" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-main); font-family: inherit; resize: vertical;" oninput="document.getElementById('char-count-q2').textContent = this.value.length"></textarea>
+                    <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">
+                        <span id="char-count-q2">0</span> / 5000 caracteres
                     </div>
                 </div>
             </section>
