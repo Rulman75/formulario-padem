@@ -358,12 +358,41 @@ app.get('/api/admin/export', requireAdmin, async (req, res) => {
             };
         });
 
+        function formatHeader(key) {
+            const parts = key.split('_');
+            const sectionMap = {
+                's1': 'Sec1', 's2': 'Sec2', 's3': 'Sec3', 's4': 'Sec4', 's5': 'Sec5',
+                's6': 'Sec6', 's7': 'Sec7', 's8': 'Sec8', 's9': 'Sec9', 's10': 'Sec10',
+                'diag': 'Diag'
+            };
+            const termMap = {
+                'mat': 'Matrícula', 'asis': 'Asistencia', 'ret': 'Retiros', 'reten': 'Retención',
+                'vul': 'Vulnerabilidad', 'rac': 'Raciones', 'bec': 'Becas', 'pc': 'PC_Séptimo',
+                'delta': 'DELTA', 'pace': 'PACE', 'aula': 'Aula_Segura', 'con': 'Contrato',
+                'obs': 'Observación', 'q1': 'Pregunta_1', 'q2': 'Pregunta_2',
+                'pei': 'PEI', 'reg': 'Reglamento', 'man': 'Manual', 'prot': 'Protocolos',
+                'epa1': 'EPA-1', 'eval': 'Evaluación', 'prac': 'Práctica', 'pise': 'PISE',
+                'pme': 'PME', 'plan': 'Plan', 'conv': 'Convivencia', 'ciu': 'Ciudadana',
+                'sex': 'Sexualidad', 'doc': 'Docente', 'inc': 'Inclusión', 'seg': 'Seguridad',
+                'esp': 'Especificación', 'anio': 'Año', 'int': 'Interno', 'apr': 'Aprobados',
+                'rep': 'Repetición', 'egr': 'Egresados', 'tit': 'Titulados'
+            };
+
+            let formattedParts = parts.map((p, index) => {
+                if (index === 0 && sectionMap[p]) return sectionMap[p];
+                if (termMap[p]) return termMap[p];
+                return p.charAt(0).toUpperCase() + p.slice(1);
+            });
+
+            return formattedParts.join(' ').replace(/_/g, ' ');
+        }
+
         const columns = [
             { header: 'RBD', key: 'RBD', width: 10 },
             { header: 'Establecimiento', key: 'Establecimiento', width: 40 },
             { header: 'Director', key: 'Director', width: 30 },
             { header: 'Última Actualización', key: 'UltimaActualizacion', width: 25 },
-            ...Array.from(allKeys).map(k => ({ header: k, key: k, width: 20 }))
+            ...Array.from(allKeys).map(k => ({ header: formatHeader(k), key: k, width: 25 }))
         ];
 
         sheet.columns = columns;
