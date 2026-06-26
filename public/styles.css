@@ -178,6 +178,7 @@ input[type="text"],
 input[type="number"],
 input[type="email"],
 input[type="date"],
+input[type="password"],
 select {
   background: var(--bg-input);
   border: 1px solid var(--border-color);
