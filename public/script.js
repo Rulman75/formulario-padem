@@ -24,16 +24,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 for (const key in data) {
                     const elements = form.elements[key];
                     if (elements) {
-                        if (elements.type === 'radio') {
-                            if (elements.length) {
-                                for (let i = 0; i < elements.length; i++) {
-                                    if (elements[i].value === data[key]) {
-                                        elements[i].checked = true;
-                                    }
+                        if (elements.length && elements[0].type === 'radio') {
+                            for (let i = 0; i < elements.length; i++) {
+                                if (elements[i].value === data[key]) {
+                                    elements[i].checked = true;
                                 }
-                            } else {
-                                if (elements.value === data[key]) elements.checked = true;
                             }
+                        } else if (elements.type === 'radio') {
+                            if (elements.value === data[key]) elements.checked = true;
                         } else if (elements.type === 'checkbox') {
                             elements.checked = (data[key] === true || data[key] === 'on');
                         } else {
