@@ -335,6 +335,41 @@ app.post('/api/admin/reset-password', requireAdmin, async (req, res) => {
     }
 });
 
+app.get('/api/admin/export-status', requireAdmin, async (req, res) => {
+    try {
+        const { rows } = await pool.query(`
+            SELECT u.username, u.school_name, u.director_name, 
+            CASE WHEN f.user_id IS NOT NULL THEN 'Completado' ELSE 'Ingresado' END as estado,
+            f.updated_at
+            FROM users u 
+            LEFT JOIN form_data f ON u.id = f.user_id 
+            WHERE u.role != 'admin'
+            ORDER BY u.school_name ASC
+        `);
+
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('Estado Usuarios PADEM');
+
+        sheet.columns = [
+            { header: 'RBD', key: 'username', width: 10 },
+            { header: 'Establecimiento', key: 'school_name', width: 40 },
+            { header: 'Director', key: 'director_name', width: 30 },
+            { header: 'Estado', key: 'estado', width: 15 },
+            { header: 'Última Actualización', key: 'updated_at', width: 25 }
+        ];
+
+        sheet.addRows(rows);
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename="Estado_Usuarios_PADEM.xlsx"');
+
+        await workbook.xlsx.write(res);
+        res.end();
+    } catch (err) {
+        res.status(500).send('Database error');
+    }
+});
+
 app.get('/api/admin/export', requireAdmin, async (req, res) => {
     try {
         const { rows } = await pool.query(`

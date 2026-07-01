@@ -12,6 +12,7 @@
 <body>
     <div class="app-container">
         <div class="header-container">
+            <button class="print-btn" onclick="window.print()">Imprimir Formulario</button>
             <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
             <img src="Logo_CMDS.png" alt="CMDS Antofagasta" class="main-logo">
             <header style="margin-bottom: 0;">
@@ -284,7 +285,7 @@
                         <thead>
                             <tr>
                                 <th>Función</th>
-                                <th style="width: 100px;">2025</th>
+                                <th style="width: 100px;">2026</th>
                                 <th>Contrato (Estatuto Docente / C. del Trabajo)</th>
                                 <th>Observación / Justificación</th>
                             </tr>
@@ -454,5 +455,13 @@
     <div class="toast" id="toast">¡Información guardada exitosamente!</div>
 
     <script src="script.js"></script>
+    <script>
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('textarea').forEach(t => {
+                t.style.height = 'auto';
+                t.style.height = (t.scrollHeight + 5) + 'px';
+            });
+        });
+    </script>
 </body>
 </html>

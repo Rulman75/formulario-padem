@@ -60,8 +60,11 @@
                 <h1 style="color: var(--primary);">Panel de Administración</h1>
             </div>
             <div style="display: flex; gap: 15px;">
+                <button id="btn-export-status" class="btn-primary" style="background-color: #3DB9BC; border-color: #3DB9BC;">
+                    Estado Usuarios (Excel)
+                </button>
                 <button id="btn-export" class="btn-primary" style="background-color: var(--success); border-color: var(--success);">
-                    Descargar Excel
+                    Descargar Todo
                 </button>
                 <button id="btn-logout" class="logout-btn" style="position: static;">Cerrar Sesión</button>
             </div>
@@ -95,6 +98,10 @@
 
             document.getElementById('btn-export').addEventListener('click', () => {
                 window.location.href = '/api/admin/export';
+            });
+
+            document.getElementById('btn-export-status').addEventListener('click', () => {
+                window.location.href = '/api/admin/export-status';
             });
 
             document.getElementById('btn-logout').addEventListener('click', async () => {

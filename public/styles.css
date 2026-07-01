@@ -72,6 +72,25 @@ body {
   color: white;
 }
 
+.print-btn {
+  position: absolute;
+  top: 0;
+  right: 140px;
+  background: rgba(56, 178, 172, 0.1);
+  color: var(--accent-teal);
+  border: 1px solid rgba(56, 178, 172, 0.3);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.print-btn:hover {
+  background: var(--accent-teal);
+  color: white;
+}
+
 .main-logo {
   max-width: 220px;
   margin-bottom: 20px;
@@ -92,6 +111,47 @@ header p {
   color: var(--text-muted);
   font-size: 1.1rem;
   text-align: center;
+}
+
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+  .app-container {
+    padding: 0;
+    max-width: none;
+  }
+  .form-card {
+    background: transparent;
+    border: none;
+    border-top: 2px solid black;
+    break-inside: avoid;
+    box-shadow: none;
+    margin-bottom: 20px;
+  }
+  input, select, textarea {
+    background: transparent !important;
+    border: 1px solid #ccc !important;
+    color: black !important;
+  }
+  .print-btn, .logout-btn, .form-actions, #toast, .auto-save-status {
+    display: none !important;
+  }
+  header p, header h1, h2, label {
+    color: black !important;
+  }
+  table th {
+    color: black !important;
+    border-bottom: 2px solid black;
+  }
+  table td {
+    border-bottom: 1px solid #ccc;
+  }
+  .radio-label input[type="radio"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 
 .form-card {
